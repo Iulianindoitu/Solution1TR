@@ -13,5 +13,13 @@ namespace SkillForge.Controllers
         {
             return View();
         }
-    }
+        public ActionResult Auth()
+        {
+               return View();
+        }
+          public ActionResult ForgotPassword()
+          {
+               return View();
+          }
+     }
 }
