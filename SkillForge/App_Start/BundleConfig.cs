@@ -10,52 +10,31 @@ namespace SkillForge.App_Start
      {
           public static void RegisterBundles(BundleCollection bundles)
           {
-               //CSS
-               // Add your bundle configuration here
-              bundles.Add(new StyleBundle("~/bundles/demo/css").Include(
-                  "~/Content/assets/css/demo.css"));
+               // CSS Bundles
+               bundles.Add(new StyleBundle("~/bundles/login/css").Include(
+                    "~/Content/assets/vendor/fonts/iconify-icons.css",
+                    "~/Content/assets/vendor/css/core.css",
+                    "~/Content/assets/css/demo.css",
+                    "~/Content/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css",
+                    "~/Content/assets/vendor/css/pages/page-auth.css"
+               ));
 
-               bundles.Add(new StyleBundle("~/bundles/vendor/core/css").Include(
-                  "~/Content/assets/vendor/core.css"));
+               // JavaScript Bundles
+               bundles.Add(new ScriptBundle("~/bundles/login/js").Include(
+                    "~/Content/assets/vendor/js/helpers.js",
+                    "~/Content/assets/js/config.js",
+                    "~/Content/assets/vendor/libs/jquery/jquery.js",
+                    "~/Content/assets/vendor/libs/popper/popper.js",
+                    "~/Content/assets/vendor/js/bootstrap.js",
+                    "~/Content/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js",
+                    "~/Content/assets/vendor/js/menu.js",
+                    "~/Content/assets/js/main.js"
+               ));
 
-               bundles.Add(new StyleBundle("~/bundles/pages/page-auth/css").Include(
-                  "~/Content/assets/pages/page-auth.css"));
-
-               bundles.Add(new StyleBundle("~/bundles/pages/page-icons/css").Include(
-                  "~/Content/assets/pages/page-icons.css"));
-
-               bundles.Add(new StyleBundle("~/bundles/pages/page-misc/css").Include(
-                    "~/Content/assets/pages/page-misc.css"));
-
-               bundles.Add(new StyleBundle("~/bundles/vendor/fonts/iconify-icons/css").Include(
-                    "~/Content/assets/vendor/fonts/iconify-icons.css"));
-
-               //JS
-               bundles.Add(new ScriptBundle("~/bundles/vendor/core/js").Include(
-                    "~/Content/assets/vendor/core.js"));
-
-               bundles.Add(new ScriptBundle("~/bundles/vendor/js/menu/js").Include(
-                    "~/Content/assets/vendor/js/menu.js"));
-
-               bundles.Add(new ScriptBundle("~/bundles").Include(
-                    "~/Content/assets/js/main.js"));
-
-               bundles.Add(new ScriptBundle("~/bundles/vendor/jquery/js").Include(
-                     "~/Content/assets/vendor/jquery/jquery.js"));
-
-               bundles.Add(new ScriptBundle("~/bundles/vendor/jquery/js/jquery.min.js").Include(
-                     "~/Content/assets/vendor/jquery/jquery.min.js"));
-
-               bundles.Add(new ScriptBundle("~/bundles/vendor/jquery/js/jquery.slim.min.js").Include(
-                     "~/Content/assets/libs/jquery/jquery.slim.min.js"));
-
-               bundles.Add(new ScriptBundle("~/bundles/js/dashboard-analytics/js").Include
-                    ("~/Content/assets/js/dashboard-analytics.js"));
-
-               bundles.Add(new ScriptBundle("~/bundles/js/helpers/js").Include
-                    ("~/Content/js/helpers.js");
-
-               bundles.Add(new ScriptBundle("~/bundles"))
+               // Favicon
+               bundles.Add(new StyleBundle("~/bundles/favicon").Include(
+                    "~/Content/assets/img/favicon/head.ico"
+               ));
           }
      }
 }
