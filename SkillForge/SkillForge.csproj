@@ -407,9 +407,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="packages.config" />
-    <Content Include="Views\Shared\Layout_.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Auth.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
@@ -417,6 +415,9 @@
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\LoginLayout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\Layout_.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

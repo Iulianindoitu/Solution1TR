@@ -1,1 +1,152 @@
-﻿
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/Layout_.cshtml";
+}
+
+@section Styles {
+    <style>
+        .avatar {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .avatar-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+    </style>
+}
+
+<div class="row">
+    <!-- Welcome Section -->
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Welcome to SkillForge</h4>
+                <p class="card-text">Your platform for skill development and learning</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">Total Courses</h6>
+                        <h4 class="mb-0">0</h4>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-content bg-primary">
+                            <i class="bx bx-book-open text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">Active Users</h6>
+                        <h4 class="mb-0">0</h4>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-content bg-success">
+                            <i class="bx bx-user text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">Completed Courses</h6>
+                        <h4 class="mb-0">0</h4>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-content bg-warning">
+                            <i class="bx bx-check-circle text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">Certificates</h6>
+                        <h4 class="mb-0">0</h4>
+                    </div>
+                    <div class="avatar">
+                        <div class="avatar-content bg-info">
+                            <i class="bx bx-award text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Courses -->
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Featured Courses</h5>
+                <a href="#" class="btn btn-primary btn-sm">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Course cards will be dynamically added here -->
+                    <div class="col-12 text-center">
+                        <p class="text-muted">No courses available yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Activity</h5>
+            </div>
+            <div class="card-body">
+                <div class="activity-feed">
+                    <div class="text-center">
+                        <p class="text-muted">No recent activity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            console.log('Index page loaded');
+        });
+    </script>
+}

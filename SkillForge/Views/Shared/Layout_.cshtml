@@ -1,53 +1,63 @@
+﻿<!--FOR REGISTER PAGE-->
+<!--NEED TO CONFIGURE THE BUNDLES FOE NORMAL WORKING-->
+
 @using System.Web.Optimization
-
 <!DOCTYPE html>
-<html>
+<html lang="en" class="layout-menu-fixed layout-compact" data-assets-path="~/Content/assets/" data-template="vertical-menu-template-free">
 <head>
-     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <title>Skillforge | @ViewBag.Title</title>
-     @Styles.Render("~/bundles/font-awesome/css")
-     @Styles.Render("~/bundles/animate/css")
-     @Styles.Render("~/bundles/bootstrap/css")
-     @Styles.Render("~/bundles/peicon7stroke/css")
-     @Styles.Render("~/bundles/peicon7stroke/css/helper")
-     @Styles.Render("~/bundles/peicon7stroke/css/style")
-
-     <!-- Add local styles, mostly for plugins css file -->
-     @if (IsSectionDefined("Styles"))
-     {@RenderSection("Styles", required: false)}
-
-     <!-- Primary HOME style -->
-     @Styles.Render("~/bundles/main/css")
+    @Html.Partial("_Header")
+    <!-- Page CSS -->
+    @RenderSection("Styles", required: false)
 </head>
-
 <body>
-     <div class="wrapper">
-          <!-- Header -->
-          <nav class="navbar navbar-default navbar-fixed-top">
-               @Html.Partial("_Header")
-          </nav>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
+            @Html.Partial("_Sidebar")
+            <!-- / Menu -->
 
-          <!-- Navigation -->
-          <aside class="navigation" id="navigation">
-               @Html.Partial("_Navigation")
-          </aside>
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
+                @Html.Partial("_Navigation")
+                <!-- / Navbar -->
 
-          <!-- Main view -->
-          <section class="content">
-               @RenderBody()
-               <!-- Footer-->
-               @Html.Partial("_Footer")
-          </section>
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @RenderBody()
+                    </div>
+                    <!-- / Content -->
 
-          <!-- Section for main scripts render -->
-          @Scripts.Render("~/bundles/pace/js")
-          @Scripts.Render("~/bundles/jquery/js")
-          @Scripts.Render("~/bundles/bootstrap/js")
-          @Scripts.Render("~/bundles/luna/js")
-          <!-- Handler for local scripts -->
-          @RenderSection("scripts", required: false)
-     </div>
+                    <!-- Footer -->
+                    @Html.Partial("_Footer")
+                    <!-- / Footer -->
+                </div>
+                <!-- / Content wrapper -->
+            </div>
+            <!-- / Layout container -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    @Scripts.Render("~/bundles/core/js")
+    @Scripts.Render("~/bundles/login/js")
+    
+    <!-- Vendors JS -->
+    <script src="~/Content/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="~/Content/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="~/Content/assets/js/dashboards-analytics.js"></script>
+    
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
