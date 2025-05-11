@@ -28,6 +28,11 @@ namespace SkillForge.App_Start
                     "~/Content/assets/vendor/css/pages/page-auth.css"
                ));
 
+               // Hero/Courses CSS Bundle
+               bundles.Add(new StyleBundle("~/bundles/hero/css").Include(
+                    "Content/assets/vendor/css/pages/hero.css"
+               ));
+
                // Core JavaScript Bundles
                bundles.Add(new ScriptBundle("~/bundles/core/js").Include(
                     "~/Content/assets/vendor/js/helpers.js",

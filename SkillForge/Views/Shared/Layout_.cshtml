@@ -7,6 +7,7 @@
 <head>
     @Html.Partial("_Header")
     <!-- Page CSS -->
+    @Styles.Render("~/bundles/hero/css")
     @RenderSection("Styles", required: false)
 </head>
 <body>
@@ -18,25 +19,23 @@
             <!-- / Menu -->
 
             <!-- Layout container -->
-            <div class="layout-page">
-                <!-- Navbar -->
-                @Html.Partial("_Navigation")
-                <!-- / Navbar -->
-
-                <!-- Content wrapper -->
-                <div class="content-wrapper">
-                    <!-- Content -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        @RenderBody()
-                    </div>
-                    <!-- / Content -->
-
-                    <!-- Footer -->
-                    @Html.Partial("_Footer")
-                    <!-- / Footer -->
-                </div>
-                <!-- / Content wrapper -->
-            </div>
+             <div class="layout-page">
+                  <!-- Navbar -->
+                  @Html.Partial("_Navigation")
+                  <!-- / Navbar -->
+                  <!-- Content wrapper -->
+                  <div class="content-wrapper">
+                       <!-- Content -->
+                       <div class="container-xxl flex-grow-1 container-p-y">
+                            @RenderBody()
+                       </div>
+                       <!-- / Content -->
+                       <!-- Footer -->
+                       @Html.Partial("_Footer")
+                       <!-- / Footer -->
+                  </div>
+                  <!-- / Content wrapper -->
+             </div>
             <!-- / Layout container -->
         </div>
 
@@ -61,3 +60,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+     

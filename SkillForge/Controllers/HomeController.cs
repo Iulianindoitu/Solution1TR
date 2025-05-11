@@ -19,5 +19,10 @@ namespace SkillForge.Controllers
                return View();
           }
 
+        public ActionResult NewCourses()
+        {
+            return View();
+        }
+
      }
 }

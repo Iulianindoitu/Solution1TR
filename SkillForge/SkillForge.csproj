@@ -124,6 +124,12 @@
     <Content Include="Content\assets\img\elements\7.png" />
     <Content Include="Content\assets\img\elements\8.png" />
     <Content Include="Content\assets\img\elements\9.png" />
+    <Content Include="Content\assets\img\elements\AutoWithPython.jpg" />
+    <Content Include="Content\assets\img\elements\CC.jpeg" />
+    <Content Include="Content\assets\img\elements\Data.jpg" />
+    <Content Include="Content\assets\img\elements\go.png" />
+    <Content Include="Content\assets\img\elements\UIcardUX.jpg" />
+    <Content Include="Content\assets\img\elements\WEB.png" />
     <Content Include="Content\assets\img\favicon\favicon.ico" />
     <Content Include="Content\assets\img\favicon\head.ico" />
     <Content Include="Content\assets\img\favicon\logo.ico" />
@@ -167,6 +173,7 @@
     <Content Include="Content\assets\js\ui-popover.js" />
     <Content Include="Content\assets\js\ui-toasts.js" />
     <Content Include="Content\assets\vendor\css\core.css" />
+    <Content Include="Content\assets\vendor\css\pages\hero.css" />
     <Content Include="Content\assets\vendor\css\pages\page-auth.css" />
     <Content Include="Content\assets\vendor\css\pages\page-icons.css" />
     <Content Include="Content\assets\vendor\css\pages\page-misc.css" />
@@ -391,6 +398,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -418,6 +426,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Layout_.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Shared\New_courses.cshtml" />
+    <Content Include="Views\Home\NewCourses.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
