@@ -30,7 +30,7 @@ namespace SkillForge.App_Start
 
                // Hero/Courses CSS Bundle
                bundles.Add(new StyleBundle("~/bundles/hero/css").Include(
-                    "Content/assets/vendor/css/pages/hero.css"
+                    "~/Content/assets/vendor/css/pages/hero.css"
                ));
 
                // Core JavaScript Bundles
