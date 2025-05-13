@@ -1,3 +1,4 @@
+@using System.Web.Optimization
 @{
     ViewBag.Title = "New Courses";
     Layout = "~/Views/Shared/Layout_.cshtml";
@@ -5,49 +6,8 @@
 
 @section Styles {
     @Styles.Render("~/bundles/hero/css")
-    <style>
-        .hero {
-            filter: blur(5px) !important;
-        }
-        .hero::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: var(--stripes), var(--rainbow);
-            background-size: 200%, 100%;
-            animation: smoothBg 60s linear infinite;
-            background-attachment: fixed;
-            mix-blend-mode: difference;
-        }
-        .content {
-            mix-blend-mode: difference !important;
-            -webkit-mix-blend-mode: difference !important;
-            filter: invert(1) !important;
-        }
-        .h1--scalingSize {
-            color: white !important;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
-        }
-        .h1--scalingSize::before {
-            content: attr(data-text);
-            position: absolute;
-            inset: 0;
-            background: white;
-            text-shadow: 0 0 1px #ffffff;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-color: white;
-            -webkit-mask: linear-gradient(#000 0 0) luminance;
-            mask: linear-gradient(#000 0 0) luminance, alpha;
-            backdrop-filter: blur(19px) brightness(12.5);
-            -webkit-text-stroke: 1px white;
-            display: flex;
-            margin: auto;
-            z-index: 1;
-            pointer-events: none;
-        }
-    </style>
 }
+   
 
 
 
