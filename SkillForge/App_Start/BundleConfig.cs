@@ -18,6 +18,9 @@ namespace SkillForge.App_Start
                  "~/Content/assets/vendor/libs/apex-charts/apex-charts.css"
             ));
 
+            bundles.Add(new StyleBundle("~/bundles/hero/css").Include(
+                "~//Content/assets/vendor/css/core.css"));
+
             // Demo CSS Bundle
             bundles.Add(new StyleBundle("~/bundles/demo/css").Include(
                  "~/Content/assets/css/demo.css"

@@ -50,31 +50,44 @@ namespace SkillForge.Controllers
                 return View();
             }
 
-            var user = _userRepository.GetUserByEmailOrUsername(email);
-            if (user != null && _userRepository.VerifyPassword(password, user.PasswordHash, user.Salt))
+            try
             {
-                // Create authentication ticket
-                var ticket = new FormsAuthenticationTicket(
-                    1,
-                    user.Username,
-                    DateTime.Now,
-                    DateTime.Now.AddMinutes(30),
-                    false,
-                    user.Id.ToString()
-                );
+                var user = _userRepository.GetUserByEmailOrUsername(email);
+                if (user != null && _userRepository.VerifyPassword(password, user.PasswordHash, user.Salt))
+                {
+                    // Create authentication ticket
+                    var ticket = new FormsAuthenticationTicket(
+                        1,
+                        user.Username,
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(30),
+                        false,
+                        user.Id.ToString()
+                    );
 
-                // Encrypt the ticket
-                string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                    // Encrypt the ticket
+                    string encryptedTicket = FormsAuthentication.Encrypt(ticket);
 
-                // Create the cookie
-                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                Response.Cookies.Add(cookie);
+                    // Create the cookie
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    Response.Cookies.Add(cookie);
 
-                return RedirectToAction("Index", "Home");
+                    // Update last login time
+                    user.LastLoginAt = DateTime.UtcNow;
+                    _userRepository.UpdateUser(user);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("", "Invalid email or password.");
+                return View();
             }
-
-            ModelState.AddModelError("", "Invalid email or password.");
-            return View();
+            catch (Exception ex)
+            {
+                // Log the error
+                ModelState.AddModelError("", "An error occurred during login. Please try again.");
+                return View();
+            }
         }
 
         [HttpPost]
@@ -94,29 +107,44 @@ namespace SkillForge.Controllers
                 return View("Auth");
             }
 
-            var existingUser = _userRepository.GetUserByEmailOrUsername(email) ?? 
-                             _userRepository.GetUserByEmailOrUsername(username);
-            if (existingUser != null)
-            {
-                ModelState.AddModelError("", "Username or email already exists.");
-                return View("Auth");
-            }
-
-            var user = new User 
-            { 
-                Username = username, 
-                Email = email, 
-                PasswordHash = password // Will be hashed in repository
-            };
-
             try
             {
+                var existingUser = _userRepository.GetUserByEmailOrUsername(email) ?? 
+                                 _userRepository.GetUserByEmailOrUsername(username);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("", "Username or email already exists.");
+                    return View("Auth");
+                }
+
+                var user = new User 
+                { 
+                    Username = username, 
+                    Email = email, 
+                    PasswordHash = password // Will be hashed in repository
+                };
+
                 _userRepository.RegisterUser(user);
-                TempData["SuccessMessage"] = "Registration successful. Please log in.";
-                return RedirectToAction("Login");
+
+                // Auto-login after registration
+                var ticket = new FormsAuthenticationTicket(
+                    1,
+                    user.Username,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    user.Id.ToString()
+                );
+
+                string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                Response.Cookies.Add(cookie);
+
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
+                // Log the error
                 ModelState.AddModelError("", "An error occurred during registration. Please try again.");
                 return View("Auth");
             }

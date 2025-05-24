@@ -35,17 +35,28 @@
 
         @if (!isAuthenticated)
         {
-            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "active" : "")">
-                <a href="@Url.Action("Login", "Login")" class="menu-link">
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                    <div class="text-truncate">Login</div>
+                    <div class="text-truncate">Authentications</div>
                 </a>
-            </li>
-            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString() == "Auth" ? "active" : "")">
-                <a href="@Url.Action("Auth", "Login")" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-user-plus"></i>
-                    <div class="text-truncate">Register</div>
-                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "active" : "")">
+                        <a href="@Url.Action("Login", "Login")" class="menu-link">
+                            <div class="text-truncate">Login</div>
+                        </a>
+                    </li>
+                    <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString() == "Auth" ? "active" : "")">
+                        <a href="@Url.Action("Auth", "Login")" class="menu-link">
+                            <div class="text-truncate">Register</div>
+                        </a>
+                    </li>
+                    <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString() == "ForgotPassword" ? "active" : "")">
+                        <a href="@Url.Action("ForgotPassword", "Login")" class="menu-link">
+                            <div class="text-truncate">Forgot Password</div>
+                        </a>
+                    </li>
+                </ul>
             </li>
         }
         else

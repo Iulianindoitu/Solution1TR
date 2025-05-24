@@ -45,6 +45,24 @@ namespace SkillForge.DAL
             _context.SaveChanges();
         }
 
+        public void UpdateUser(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            var existingUser = _context.Users.Find(user.Id);
+            if (existingUser == null)
+                throw new ArgumentException("User not found", nameof(user));
+
+            // Update only the fields that should be updated
+            existingUser.LastLoginAt = user.LastLoginAt;
+            existingUser.IsActive = user.IsActive;
+            existingUser.ResetPasswordToken = user.ResetPasswordToken;
+            existingUser.ResetPasswordTokenExpiry = user.ResetPasswordTokenExpiry;
+
+            _context.SaveChanges();
+        }
+
         public bool VerifyPassword(string password, string storedHash, string salt)
         {
             if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(storedHash) || string.IsNullOrEmpty(salt))

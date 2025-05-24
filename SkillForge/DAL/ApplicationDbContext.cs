@@ -1,7 +1,8 @@
 using System;
 using System.Data.Entity;
-Install - Package EntityFramework
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using SkillForge.Models;
 
 namespace SkillForge.DAL
@@ -14,6 +15,8 @@ namespace SkillForge.DAL
             this.Configuration.ProxyCreationEnabled = false;
             // Disable lazy loading
             this.Configuration.LazyLoadingEnabled = false;
+            // Enable automatic migrations
+            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
         }
 
         public DbSet<User> Users { get; set; }
@@ -24,6 +27,10 @@ namespace SkillForge.DAL
             {
                 base.OnModelCreating(modelBuilder);
 
+                // Remove pluralizing table name convention
+                modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+                // Configure unique indexes
                 modelBuilder.Entity<User>()
                     .HasIndex(u => u.Email)
                     .IsUnique();
@@ -62,4 +69,4 @@ namespace SkillForge.DAL
             }
         }
     }
-} 
+}
