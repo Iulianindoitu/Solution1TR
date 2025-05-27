@@ -24,10 +24,13 @@ namespace SkillForge.Models
 
         [Required(ErrorMessage = "Password is required")]
         [StringLength(100, ErrorMessage = "Password hash cannot exceed 100 characters")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", 
+            ErrorMessage = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character")]
         public string PasswordHash { get; set; }
 
         [Required(ErrorMessage = "Salt is required")]
-        [StringLength(50, ErrorMessage = "Salt cannot exceed 50 characters")]
+        [StringLength(32, MinimumLength = 32, ErrorMessage = "Salt must be exactly 32 characters")]
+        [RegularExpression(@"^[A-Za-z0-9+/=]+$", ErrorMessage = "Invalid salt format")]
         public string Salt { get; set; }
 
         [Required]
@@ -40,10 +43,17 @@ namespace SkillForge.Models
         [DataType(DataType.DateTime)]
         public DateTime? LastLoginAt { get; set; }
 
-        [StringLength(50)]
+        [StringLength(64, MinimumLength = 64, ErrorMessage = "Reset token must be exactly 64 characters")]
+        [RegularExpression(@"^[A-Za-z0-9+/=]+$", ErrorMessage = "Invalid reset token format")]
         public string ResetPasswordToken { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime? ResetPasswordTokenExpiry { get; set; }
+
+        [Required]
+        public int LoginAttempts { get; set; } = 0;
+
+        [DataType(DataType.DateTime)]
+        public DateTime? LockoutEnd { get; set; }
     }
 } 

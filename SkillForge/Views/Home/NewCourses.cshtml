@@ -1,107 +1,143 @@
 @using System.Web.Optimization
 @{
-     ViewBag.Title = "New Courses";
-     Layout = "~/Views/Shared/Layout_.cshtml";
+    ViewBag.Title = "New Courses";
+    Layout = "~/Views/Shared/Layout_.cshtml";
 }
-
+@Styles.Render("~/bundles/hero/css")
 @section Styles {
-    @Styles.Render("~/bundles/hero/css")
-}
 
-  
+    @*<style>
+        .hero {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1);
+            padding: 80px 0;
+            text-align: center;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .content {
+            color: white;
+        }
+
+            .content h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+            }
+
+            .content h2 {
+                font-size: 1.5rem;
+                font-weight: 400;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+        @@media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+            }
+
+            .content h1 {
+                font-size: 2.5rem;
+            }
+
+            .content h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>*@
+}
 
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
-     <section class='wrapper'>
-          <div class='hero'>
-               <div class='content'>
-                    <h1 class='h1--scalingSize' data-text='Your Courses - Your Future'>Your Courses - Your Future</h1>
-                    <h2>Today's choices define tomorrow's achievements!</h2>    
-               </div>
-          </div>
-     </section>
-     <br>
-     <!-- Grid Card -->
-     <h3 class="pb-1 mb-6 text-body-secondary"><i>Our Courses</i></h3>
-     <div class="row row-cols-1 row-cols-md-3 g-6 mb-12">
-          <div class="col">
-               <div class="card h-100">
-                    <img class="card-img-top" src="~/Content/assets/img/elements/UIcardUX.jpg" alt="UI/UX Design" />
-                    <div class="card-body">
-                         <h5 class="card-title">UI/UX Design</h5>
-                         <p class="card-text">
-                              This card showcases modern UI/UX principles with a clean layout, smooth interactions, and user-centered aesthetics.
-                         </p>
-                    </div>
-               </div>
-          </div>
-          <div class="col">
-               <div class="card h-100">
-                    <img class="card-img-top" src="~/Content/assets/img/elements/WEB.png" alt="Web Development" />
-                    <div class="card-body">
-                         <h5 class="card-title">Web Development</h5>
-                         <p class="card-text">
-                              You are going to learn how to create a website using HTML, CSS and JavaScript.
-                              For advanced students you will learn the newest frameworks VUE, Angular and React.
-                         </p>
-                    </div>
-               </div>
-          </div>
-          <div class="col">
-               <div class="card h-100">
-                    <img class="card-img-top" src="~/Content/assets/img/elements/AutoWithPython.jpg" alt="Python Automation" />
-                    <div class="card-body">
-                         <h5 class="card-title">Automation with Python</h5>
-                         <p class="card-text">
-                              This course focuses on automating tasks and improving efficiency using Python.
-                              You'll learn how to write scripts for file manipulation, data extraction, web scraping, and interacting with APIs.
-                         </p>
-                    </div>
-               </div>
-          </div>
-          <div class="col">
-               <div class="card h-100">
-                    <img class="card-img-top" src="~/Content/assets/img/elements/CC.jpeg" alt="C# Course" />
-                    <div class="card-body">
-                         <h5 class="card-title">C# Course </h5>
-                         <p class="card-text">
-                              Web Development: C# is used for building web applications
-                              and services using frameworks like ASP.NET.
-                         </p>
-                    </div>
-               </div>
-          </div>
-          <div class="col">
-               <div class="card h-100">
-                    <img class="card-img-top" src="~/Content/assets/img/elements/Data.jpg" alt="Data Science" />
-                    <div class="card-body">
-                         <h5 class="card-title">Data Science </h5>
-                         <p class="card-text">
-                              Master the art of data analysis and visualization. Learn to extract insights from complex datasets
-                              and make data-driven decisions using modern tools and techniques.
-                         </p>
-                    </div>
-               </div>
-          </div>
-          <div class="col">
-               <div class="card h-100">
-                    <img class="card-img-top" src="~/Content/assets/img/elements/go.png" alt="Flutter" />
-                    <div class="card-body">
-                         <h5 class="card-title">Google Flutter </h5>
-                         <p class="card-text">
-                              Build beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
-                              Learn Flutter's powerful UI framework and Dart programming language.
-                         </p>
-                    </div>
-               </div>
-          </div>
-     </div>
+    <section class="hero">
+        <div class="content">
+            <h1>Your Courses - Your Future</h1>
+            <h2>Today's choices define tomorrow's achievements!</h2>
+        </div>
+    </section>
+    <br>
+    <!-- Grid Card -->
+    <h3 class="pb-1 mb-6 text-body-secondary"><i>Our Courses</i></h3>
+    <div class="row row-cols-1 row-cols-md-3 g-6 mb-12">
+        <div class="col">
+            <div class="card h-100">
+                <img class="card-img-top" src="~/Content/assets/img/elements/UIcardUX.jpg" alt="UI/UX Design" />
+                <div class="card-body">
+                    <h5 class="card-title">UI/UX Design</h5>
+                    <p class="card-text">
+                        This card showcases modern UI/UX principles with a clean layout, smooth interactions, and user-centered aesthetics.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img class="card-img-top" src="~/Content/assets/img/elements/WEB.png" alt="Web Development" />
+                <div class="card-body">
+                    <h5 class="card-title">Web Development</h5>
+                    <p class="card-text">
+                        You are going to learn how to create a website using HTML, CSS and JavaScript.
+                        For advanced students you will learn the newest frameworks VUE, Angular and React.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img class="card-img-top" src="~/Content/assets/img/elements/AutoWithPython.jpg" alt="Python Automation" />
+                <div class="card-body">
+                    <h5 class="card-title">Automation with Python</h5>
+                    <p class="card-text">
+                        This course focuses on automating tasks and improving efficiency using Python.
+                        You'll learn how to write scripts for file manipulation, data extraction, web scraping, and interacting with APIs.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img class="card-img-top" src="~/Content/assets/img/elements/CC.jpeg" alt="C# Course" />
+                <div class="card-body">
+                    <h5 class="card-title">C# Course </h5>
+                    <p class="card-text">
+                        Web Development: C# is used for building web applications
+                        and services using frameworks like ASP.NET.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img class="card-img-top" src="~/Content/assets/img/elements/Data.jpg" alt="Data Science" />
+                <div class="card-body">
+                    <h5 class="card-title">Data Science </h5>
+                    <p class="card-text">
+                        Master the art of data analysis and visualization. Learn to extract insights from complex datasets
+                        and make data-driven decisions using modern tools and techniques.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img class="card-img-top" src="~/Content/assets/img/elements/go.png" alt="Flutter" />
+                <div class="card-body">
+                    <h5 class="card-title">Google Flutter </h5>
+                    <p class="card-text">
+                        Build beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
+                        Learn Flutter's powerful UI framework and Dart programming language.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
-     <script>
-          $(document).ready(function () {
-               // Add any course-specific JavaScript here
-          });
-     </script>
+    <script>
+        $(document).ready(function () {
+            // Add any course-specific JavaScript here
+        });
+    </script>
 } 

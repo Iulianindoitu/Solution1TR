@@ -41,7 +41,17 @@ namespace SkillForge.DAL
             // Hash the password with the salt
             user.PasswordHash = HashPassword(user.PasswordHash, user.Salt);
 
-            _context.Users.Add(user);
+            // Map User to ApplicationUser
+            var applicationUser = new ApplicationUser
+            {
+                UserName = user.Username,
+                Email = user.Email,
+                PasswordHash = user.PasswordHash,
+                IsActive = user.IsActive,
+                CreatedAt = user.CreatedAt
+            };
+
+            _context.Users.Add(applicationUser);
             _context.SaveChanges();
         }
 
@@ -57,6 +67,8 @@ namespace SkillForge.DAL
             // Update only the fields that should be updated
             existingUser.LastLoginAt = user.LastLoginAt;
             existingUser.IsActive = user.IsActive;
+
+            // Ensure these properties exist in the User class, not ApplicationUser
             existingUser.ResetPasswordToken = user.ResetPasswordToken;
             existingUser.ResetPasswordTokenExpiry = user.ResetPasswordTokenExpiry;
 

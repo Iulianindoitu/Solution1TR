@@ -1,72 +1,58 @@
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Conventions;
+using Microsoft.AspNet.Identity.EntityFramework;
 using SkillForge.Models;
+using System.Data.Entity;
 
 namespace SkillForge.DAL
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext() : base("DefaultConnection")
+        public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
-            // Disable proxy creation
-            this.Configuration.ProxyCreationEnabled = false;
-            // Disable lazy loading
-            this.Configuration.LazyLoadingEnabled = false;
-            // Enable automatic migrations
-            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
+            Database.SetInitializer<ApplicationDbContext>(null);
         }
 
-        public DbSet<User> Users { get; set; }
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+
+        public DbSet<Course> Courses { get; set; }
+        public new DbSet<ApplicationUser> Users { get; set; }
+        public new DbSet<IdentityRole> Roles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            try
-            {
-                base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
-                // Remove pluralizing table name convention
-                modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            // Configure Course entity
+            modelBuilder.Entity<Course>()
+                .Property(c => c.Title)
+                .IsRequired()
+                .HasMaxLength(100);
 
-                // Configure unique indexes
-                modelBuilder.Entity<User>()
-                    .HasIndex(u => u.Email)
-                    .IsUnique();
+            modelBuilder.Entity<Course>()
+                .Property(c => c.Description)
+                .IsRequired();
 
-                modelBuilder.Entity<User>()
-                    .HasIndex(u => u.Username)
-                    .IsUnique();
-            }
-            catch (Exception ex)
-            {
-                // Log the error or handle it appropriately
-                throw new Exception("Error configuring database model", ex);
-            }
-        }
+            modelBuilder.Entity<Course>()
+                .Property(c => c.Price)
+                .HasPrecision(18, 2);
 
-        public override int SaveChanges()
-        {
-            try
-            {
-                return base.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                // Handle concurrency conflicts
-                throw new Exception("A concurrency error occurred while saving changes", ex);
-            }
-            catch (DbUpdateException ex)
-            {
-                // Handle update errors
-                throw new Exception("An error occurred while updating the database", ex);
-            }
-            catch (Exception ex)
-            {
-                // Handle other errors
-                throw new Exception("An error occurred while saving changes", ex);
-            }
+            // Configure ApplicationUser entity
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(u => u.FirstName)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(u => u.LastName)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(u => u.CreatedAt)
+                .IsRequired();
         }
     }
 }

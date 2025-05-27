@@ -23508,11 +23508,11 @@ body:not(.modal-open) .layout-content-navbar .layout-navbar {
 
 /* NEW COURSES HERO SECTION */
 /*houdini*/
-@property --blink-opacity {
+/*@property --blink-opacity {
   syntax: "<number>";
   inherits: false;
   initial-value: 1;
-}
+}*/
 
 /* #fallback @keyframes blink-animation {
   0%,
@@ -23524,7 +23524,7 @@ body:not(.modal-open) .layout-content-navbar .layout-navbar {
   }
 }*/
 
-@keyframes blink-animation {
+/*@keyframes blink-animation {
   0%,
   100% {
     opacity: var(--blink-opacity, 1);
@@ -23532,11 +23532,11 @@ body:not(.modal-open) .layout-content-navbar .layout-navbar {
   50% {
     opacity: 0;
   }
-}
+}*/
 /*houdini*/
 
 /*base*/
-:root {
+/*:root {
   font-family: Inter, sans-serif;
 
   --stripe-color: #fff;
@@ -23551,11 +23551,11 @@ body {
   place-content: center;
   place-items: flex-start center;
   background: var(--bg);
-}
+}*/
 
 /*custom*/
 
-@keyframes smoothBg {
+/*@keyframes smoothBg {
   from {
     background-position: 50% 50%, 50% 50%;
   }
@@ -23568,9 +23568,9 @@ body {
   width: 100%;
   height: auto;
   position: relative;
-}
+}*/
 /*actual pentru herosection*/
-.hero {
+/*.hero {
   z-index:1;
   width: 100%;
   height: 100%;
@@ -23598,11 +23598,11 @@ body {
   );
   background-image: var(--stripes), var(--rainbow);
   background-size: 300%, 200%;
-  background-position: 50% 50%, 50% 50%;
+  background-position: 50% 50%, 50% 50%;*/
 
 /*  filter: blur(10px) invert(100%);*/
 
-  mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+  /*mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
   &::after
 {
     content: "";
@@ -23611,8 +23611,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* un overlay negru cu opacitate 40% */
-    z-index: 1;
+    background: rgba(0, 0, 0, 0.4);*/ /* un overlay negru cu opacitate 40% */
+    /*z-index: 1;
 }
 }
 
@@ -23633,19 +23633,19 @@ body {
     flex-flow: column;
     gap: 4.5%;
     text-align: center;
-    mix-blend-mode: normal; /* Change from difference */
-    -webbkit-mix-blend-mode: difference;
+    mix-blend-mode: normal;*/ /* Change from difference */
+    /*-webbkit-mix-blend-mode: difference;
     filter: none;
     position: absolute;
-    z-index: 2; /* Ensure it's in front of ::after and .hero */
-}
+    z-index: 2;*/ /* Ensure it's in front of ::after and .hero */
+/*}
 
 .hero-content {
     position: relative;
     z-index: 2;
-    color: white; /* text alb pentru contrast maxim */
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* pentru lizibilitate sporită */
-}
+    color: white;*/ /* text alb pentru contrast maxim */
+    /*text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);*/ /* pentru lizibilitate sporită */
+/*}
     .h1--scalingSize {
   font-size: calc(1rem - -5vw);
   position: relative;
@@ -23664,10 +23664,10 @@ body {
   padding: 0.5rem;
 }
 
-[for="switch"]:where(:hover, :active, :focus-within) {
+[for="switch"]:where(:hover, :active, :focus-within) {*/
   /*transform: scale(1.2);
   font-weight: 900;*/
-  transition: 0.3s ease;
+  /*transition: 0.3s ease;
   animation: animSwitch 0.2s alternate;
   & .icon {
     animation-play-state: paused;
@@ -23679,10 +23679,10 @@ body {
     transform: scale(1.2);
     font-weight: 900;
   }
-}
+}*/
 
 /*icon houdini*/
-.icon {
+/*.icon {
   width: 1lh;
   height: 1lh;
   aspect-ratio: 1/1;
@@ -23691,10 +23691,10 @@ body {
   border: 1px dashed;
   --blink-opacity: 1;
   animation: blink-animation 2s ease-in-out infinite running;
-}
+}*/
 
 /*challenge*/
-.h1--scalingSize::before {
+/*.h1--scalingSize::before {
     content: attr(data-text);
     position: absolute;
     inset: 0;
@@ -23703,5 +23703,5 @@ body {
     -webkit-text-fill-color: white;
     z-index: 2;
     pointer-events: none;
-}
+}*/
 
