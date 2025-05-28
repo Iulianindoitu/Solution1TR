@@ -27132,11 +27132,11 @@ body:not(.modal-open) .layout-content-navbar .layout-navbar {
 /* NEW COURSES HERO SECTION */
 
 /*houdini*/
-@property --blink-opacity {
+/*@property --blink-opacity {
     syntax: "<number>";
     inherits: false;
     initial-value: 1;
-}
+}*/
 
 /* #fallback @keyframes blink-animation {
   0%,
@@ -27148,7 +27148,7 @@ body:not(.modal-open) .layout-content-navbar .layout-navbar {
   }
 } */
 
-@keyframes blink-animation {
+/*@keyframes blink-animation {
     0%, 100% {
         opacity: var(--blink-opacity, 1);
     }
@@ -27156,11 +27156,11 @@ body:not(.modal-open) .layout-content-navbar .layout-navbar {
     50% {
         opacity: 0;
     }
-}
+}*/
 /*houdini*/
 
 /*base*/
-:root {
+/*:root {
     font-family: Inter, sans-serif;
     --stripe-color: #fff;
     --bg: var(--stripe-color);
@@ -27174,11 +27174,11 @@ body {
     place-content: center;
     place-items: flex-start center;
     background: var(--bg);
-}
+}*/
 
 /*custom*/
 
-@keyframes smoothBg {
+/*@keyframes smoothBg {
     from {
         background-position: 60% 60%, 60% 50%;
     }
@@ -27192,9 +27192,10 @@ body {
     width: 100%;
     height: auto;
     position: relative;
-}
-
-.hero {
+}*/
+/*actual pentru herosection*/
+/*.hero {
+    z-index: 1;
     width: 100%;
     height: 100%;
     min-height: 42vh;
@@ -27202,33 +27203,34 @@ body {
     display: flex;
     place-content: center;
     place-items: center;
-    border-radius: 0.5rem;
-    --stripes: repeating-linear-gradient( 100deg, var(--stripe-color) 0%, var(--stripe-color) 10%, transparent 25%, transparent 28%, var(--stripe-color) 36% );
-    --rainbow: repeating-linear-gradient( 100deg, #60a5fa 15%, #e879f9 25%, #60a5fa 25%, #5eead4 25%, #60a5fa 30% );
+    --stripes: repeating-linear-gradient( 100deg, var(--stripe-color) 0%, var(--stripe-color) 7%, transparent 10%, transparent 12%, var(--stripe-color) 16% );
+    --rainbow: repeating-linear-gradient( 100deg, #60a5fa 10%, #e879f9 15%, #60a5fa 20%, #5eead4 25%, #60a5fa 30% );
     background-image: var(--stripes), var(--rainbow);
     background-size: 300%, 200%;
-    background-position: 50% 50%, 50% 50%;
-    filter: blur(30px) invert(100%);
-    mask-image: radial-gradient(ellipse at 100% 0%, black 500%, transparent 70%);
+    background-position: 50% 50%, 50% 50%;*/
+    /*  filter: blur(10px) invert(100%);*/
+
+    /*mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+    &::after
+
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);*/ /* un overlay negru cu opacitate 40% */
+    /*z-index: 1;
 }
 
-    .hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: var(--stripes), var(--rainbow);
-        background-size: 200%, 100%;
-        animation: smoothBg 25s linear infinite;
-        background-attachment: fixed;
-        mix-blend-mode: difference;
-    }
+}
 
 
 :has(:checked) .hero,
 :has(:checked) .hero::after {
-    filter: blur(10px) opacity(60%) saturate(200%);
+    filter: blur(10px) opacity(50%) saturate(200%);
 }
-
 
 .content {
     position: absolute;
@@ -27241,10 +27243,19 @@ body {
     flex-flow: column;
     gap: 4.5%;
     text-align: center;
-    mix-blend-mode: difference;
-    -webbkit-mix-blend-mode: difference;
-    filter: invert(1);
-}
+    mix-blend-mode: normal;*/ /* Change from difference */
+    /*-webbkit-mix-blend-mode: difference;
+    filter: none;
+    position: absolute;
+    z-index: 2;*/ /* Ensure it's in front of ::after and .hero */
+/*}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;*/ /* text alb pentru contrast maxim */
+    /*text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);*/ /* pentru lizibilitate sporită */
+/*}
 
 .h1--scalingSize {
     font-size: calc(1rem - -5vw);
@@ -27264,10 +27275,10 @@ body {
     padding: 0.5rem;
 }
 
-    [for="switch"]:where(:hover, :active, :focus-within) {
+    [for="switch"]:where(:hover, :active, :focus-within) {*/
         /*transform: scale(1.2);
   font-weight: 900;*/
-        transition: 0.3s ease;
+        /*transition: 0.3s ease;
         animation: animSwitch 0.2s alternate;
         & .icon
 
@@ -27282,10 +27293,10 @@ body {
         transform: scale(1.2);
         font-weight: 900;
     }
-}
+}*/
 
 /*icon houdini*/
-.icon {
+/*.icon {
     width: 1lh;
     height: 1lh;
     aspect-ratio: 1/1;
@@ -27294,24 +27305,16 @@ body {
     border: 1px dashed;
     --blink-opacity: 1;
     animation: blink-animation 2s ease-in-out infinite running;
-}
+}*/
 
 /*challenge*/
-.h1--scalingSize::before {
+/*.h1--scalingSize::before {
     content: attr(data-text);
     position: absolute;
     inset: 0;
-    background: white;
-    text-shadow: 0 0 1px #ffffff;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-color: white;
-    -webkit-mask: linear-gradient(#000 0 0) luminance;
-    mask: linear-gradient(#000 0 0) luminance, alpha;
-    backdrop-filter: blur(19px) brightness(12.5);
-    -webkit-text-stroke: 1px white;
-    display: flex;
-    margin: auto;
-    z-index: 1;
+    color: white;
+    text-shadow: 0 0 4px black;
+    -webkit-text-fill-color: white;
+    z-index: 2;
     pointer-events: none;
-}
+}*/

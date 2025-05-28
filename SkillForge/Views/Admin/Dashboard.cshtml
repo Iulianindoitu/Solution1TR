@@ -1,0 +1,121 @@
+@model SkillForge.Models.AdminDashboardViewModel
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/Layout_.cshtml";
+}
+
+@section Styles {
+    @Styles.Render("~/bundles/core/css")
+    <style>
+        .stats-card {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats-card h3 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .stats-card p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        .recent-activity {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .recent-activity h4 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .activity-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">Admin Dashboard</h4>
+
+    <!-- Statistics Cards -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="stats-card">
+                <h3>@Model.TotalUsers</h3>
+                <p>Total Users</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="stats-card">
+                <h3>@Model.TotalCourses</h3>
+                <p>Total Courses</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="recent-activity">
+                <h4>Recent Users</h4>
+                @foreach (var user in Model.RecentUsers)
+                {
+                    <div class="activity-item">
+                        <strong>@user.UserName</strong>
+                        <small class="text-muted d-block">Joined: @user.CreatedAt.ToString("MMM dd, yyyy")</small>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="recent-activity">
+                <h4>Recent Courses</h4>
+                @foreach (var course in Model.RecentCourses)
+                {
+                    <div class="activity-item">
+                        <strong>@course.Title</strong>
+                        <small class="text-muted d-block">Created: @course.CreatedAt.ToString("MMM dd, yyyy")</small>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Actions</h5>
+                    <div class="d-flex gap-2">
+                        <a href="@Url.Action("Users", "Admin")" class="btn btn-primary">Manage Users</a>
+                        <a href="@Url.Action("Courses", "Admin")" class="btn btn-success">Manage Courses</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Add any dashboard-specific JavaScript here
+        });
+    </script>
+} 
