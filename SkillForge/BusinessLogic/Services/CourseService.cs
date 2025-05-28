@@ -6,6 +6,7 @@ using SkillForge.Models;
 using SkillForge.DAL;
 using SkillForge.BusinessLogic.Interfaces;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace SkillForge.BusinessLogic.Services
 {
@@ -63,19 +64,19 @@ namespace SkillForge.BusinessLogic.Services
 
             try
             {
-                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+                using (var transaction = _dbContext.Database.BeginTransaction())
                 {
                     try
                     {
                         course.CreatedAt = DateTime.UtcNow;
                         _dbContext.Courses.Add(course);
                         await _dbContext.SaveChangesAsync();
-                        await transaction.CommitAsync();
+                        transaction.Commit();
                         return true;
                     }
                     catch
                     {
-                        await transaction.RollbackAsync();
+                        transaction.Rollback();
                         throw;
                     }
                 }
@@ -100,7 +101,7 @@ namespace SkillForge.BusinessLogic.Services
 
             try
             {
-                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+                using (var transaction = _dbContext.Database.BeginTransaction())
                 {
                     try
                     {
@@ -110,12 +111,12 @@ namespace SkillForge.BusinessLogic.Services
 
                         _dbContext.Entry(existingCourse).CurrentValues.SetValues(course);
                         await _dbContext.SaveChangesAsync();
-                        await transaction.CommitAsync();
+                        transaction.Commit();
                         return true;
                     }
                     catch
                     {
-                        await transaction.RollbackAsync();
+                        transaction.Rollback();
                         throw;
                     }
                 }
@@ -131,7 +132,7 @@ namespace SkillForge.BusinessLogic.Services
         {
             try
             {
-                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+                using (var transaction = _dbContext.Database.BeginTransaction())
                 {
                     try
                     {
@@ -141,12 +142,12 @@ namespace SkillForge.BusinessLogic.Services
 
                         _dbContext.Courses.Remove(course);
                         await _dbContext.SaveChangesAsync();
-                        await transaction.CommitAsync();
+                        transaction.Commit();
                         return true;
                     }
                     catch
                     {
-                        await transaction.RollbackAsync();
+                        transaction.Rollback();
                         throw;
                     }
                 }

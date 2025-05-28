@@ -29,5 +29,7 @@ namespace SkillForge.Models
         {
             get { return $"{FirstName} {LastName}"; }
         }
-    }
+
+          public string Username { get; internal set; }
+     }
 } 

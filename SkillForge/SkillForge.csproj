@@ -602,6 +602,7 @@
     <Compile Include="BusinessLogic\Interfaces\IUserService.cs" />
     <Compile Include="BusinessLogic\Services\CourseService.cs" />
     <Compile Include="BusinessLogic\Services\IdentityConfig.cs" />
+    <Compile Include="BusinessLogic\Services\PasswordOptions.cs" />
     <Compile Include="BusinessLogic\Services\UserService.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />

@@ -13,5 +13,6 @@ namespace SkillForge.BusinessLogic.Interfaces
         Task<bool> DeleteUserAsync(string userId);
         Task<bool> CreateUserAsync(ApplicationUser user, string password);
         Task<bool> UpdateUserAsync(ApplicationUser user);
-    }
+          bool IsUserInRoleAsync(string id, string v);
+     }
 } 

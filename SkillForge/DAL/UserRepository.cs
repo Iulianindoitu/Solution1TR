@@ -16,11 +16,31 @@ namespace SkillForge.DAL
             _context = new ApplicationDbContext();
         }
 
-        public User GetUserByEmailOrUsername(string emailOrUsername)
-        {
-            return _context.Users
-                .FirstOrDefault(u => u.Email == emailOrUsername || u.Username == emailOrUsername);
-        }
+          public User GetUserByEmailOrUsername(string emailOrUsername)
+          {
+               var appUser = _context.Users
+                   .FirstOrDefault(u => u.Email == emailOrUsername || u.UserName == emailOrUsername);
+
+               if (appUser == null)
+                    return null;
+
+               // Map ApplicationUser to User
+               return new User
+               {
+                    Username = appUser.UserName,
+                    Email = appUser.Email,
+                    IsActive = appUser.IsActive,
+                    CreatedAt = appUser.CreatedAt,
+                    // The following properties are not available in ApplicationUser, so set to default/null
+                    PasswordHash = null,
+                    Salt = null,
+                    LastLoginAt = null,
+                    ResetPasswordToken = null,
+                    ResetPasswordTokenExpiry = null,   
+                    LoginAttempts = 0,
+                    LockoutEnd = null
+               };
+          }
 
         public void RegisterUser(User user)
         {

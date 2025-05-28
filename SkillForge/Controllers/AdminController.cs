@@ -57,7 +57,7 @@ namespace SkillForge.Controllers
                     TotalUsers = (await _userService.GetAllUsersAsync()).Count(),
                     TotalCourses = (await _courseService.GetAllCoursesAsync()).Count(),
                     RecentUsers = (await _userService.GetAllUsersAsync()).OrderByDescending(u => u.CreatedAt).Take(5).ToList(),
-                    RecentCourses = await _courseService.GetRecentCoursesAsync(5)
+                    RecentCourses = (List<Course>)await _courseService.GetRecentCoursesAsync(5)
                 };
                 return View(dashboardViewModel);
             }
@@ -245,11 +245,19 @@ namespace SkillForge.Controllers
         {
             try
             {
-                var instructors = (await _userService.GetAllUsersAsync())
-                    .Where(u => _userService.IsUserInRoleAsync(u.Id, "Instructor").Result)
-                    .ToList();
-                ViewBag.Instructors = new SelectList(instructors, "Id", "FullName");
-                return View();
+                var allUsers = await _userService.GetAllUsersAsync();
+                var instructors = new List<ApplicationUser>();
+                
+                foreach (var user in allUsers)
+                {
+                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    {
+                        instructors.Add(user);
+                    }
+                }
+
+                ViewBag.Instructors = new SelectList(instructors, "Id", "UserName");
+                return View(new Course());
             }
             catch (Exception ex)
             {
@@ -262,39 +270,107 @@ namespace SkillForge.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateCourse(Course course)
         {
+            if (!ModelState.IsValid)
+            {
+                var allUsers = await _userService.GetAllUsersAsync();
+                var instructors = new List<ApplicationUser>();
+                
+                foreach (var user in allUsers)
+                {
+                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    {
+                        instructors.Add(user);
+                    }
+                }
+                
+                ViewBag.Instructors = new SelectList(instructors, "Id", "UserName");
+                return View(course);
+            }
+
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var instructors = (await _userService.GetAllUsersAsync())
-                        .Where(u => _userService.IsUserInRoleAsync(u.Id, "Instructor").Result)
-                        .ToList();
-                    ViewBag.Instructors = new SelectList(instructors, "Id", "FullName");
-                    return View(course);
-                }
-
-                var instructor = await _userService.GetUserByIdAsync(course.InstructorId);
-                if (instructor == null || !await _userService.IsUserInRoleAsync(instructor.Id, "Instructor"))
-                {
-                    ModelState.AddModelError("InstructorId", "Selected instructor is not valid.");
-                    var instructors = (await _userService.GetAllUsersAsync())
-                        .Where(u => _userService.IsUserInRoleAsync(u.Id, "Instructor").Result)
-                        .ToList();
-                    ViewBag.Instructors = new SelectList(instructors, "Id", "FullName");
-                    return View(course);
-                }
-
                 var success = await _courseService.CreateCourseAsync(course);
                 if (!success)
                 {
                     ModelState.AddModelError("", "Failed to create course.");
                     return View(course);
                 }
+
                 return RedirectToAction("Courses");
             }
             catch (Exception ex)
             {
                 return HandleError("CreateCourse", ex);
+            }
+        }
+
+        // GET: Admin/EditCourse/5
+        public async Task<ActionResult> EditCourse(int id)
+        {
+            try
+            {
+                var course = await _courseService.GetCourseByIdAsync(id);
+                if (course == null)
+                {
+                    return HttpNotFound("Course not found");
+                }
+
+                var allUsers = await _userService.GetAllUsersAsync();
+                var instructors = new List<ApplicationUser>();
+                
+                foreach (var user in allUsers)
+                {
+                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    {
+                        instructors.Add(user);
+                    }
+                }
+                
+                ViewBag.Instructors = new SelectList(instructors, "Id", "UserName");
+                return View(course);
+            }
+            catch (Exception ex)
+            {
+                return HandleError("EditCourse", ex);
+            }
+        }
+
+        // POST: Admin/EditCourse/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditCourse(Course course)
+        {
+            if (!ModelState.IsValid)
+            {
+                var allUsers = await _userService.GetAllUsersAsync();
+                var instructors = new List<ApplicationUser>();
+                
+                foreach (var user in allUsers)
+                {
+                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    {
+                        instructors.Add(user);
+                    }
+                }
+                
+                ViewBag.Instructors = new SelectList(instructors, "Id", "UserName");
+                return View(course);
+            }
+
+            try
+            {
+                var success = await _courseService.UpdateCourseAsync(course);
+                if (!success)
+                {
+                    ModelState.AddModelError("", "Failed to update course.");
+                    return View(course);
+                }
+
+                return RedirectToAction("Courses");
+            }
+            catch (Exception ex)
+            {
+                return HandleError("EditCourse", ex);
             }
         }
     }
