@@ -172,28 +172,4 @@ namespace SkillForge.BusinessLogic.Services
             }
         }
     }
-
-    public class IdentityConfig
-    {
-          public PasswordOptions PasswordOptions { get; set; } = new PasswordOptions
-        {
-               RequiredLength = 6,
-               RequireNonLetterOrDigit = true,
-               RequireDigit = true,
-               RequireLowercase = true,
-               RequireUppercase = true
-        };
-
-        public UserOptions UserOptions { get; set; } = new UserOptions
-        {
-            RequireUniqueEmail = true,
-            AllowOnlyAlphanumericUserNames = false
-        };
-    }
-
-    public class UserOptions
-    {
-        public bool RequireUniqueEmail { get; set; }
-        public bool AllowOnlyAlphanumericUserNames { get; set; }
-    }
 }

@@ -250,7 +250,8 @@ namespace SkillForge.Controllers
                 
                 foreach (var user in allUsers)
                 {
-                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    var isInstructor = await _userService.IsUserInRoleAsync(user.Id, "Instructor");
+                    if (isInstructor)
                     {
                         instructors.Add(user);
                     }
@@ -277,7 +278,8 @@ namespace SkillForge.Controllers
                 
                 foreach (var user in allUsers)
                 {
-                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    var isInstructor = await _userService.IsUserInRoleAsync(user.Id, "Instructor");
+                    if (isInstructor)
                     {
                         instructors.Add(user);
                     }
@@ -320,7 +322,8 @@ namespace SkillForge.Controllers
                 
                 foreach (var user in allUsers)
                 {
-                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    var isInstructor = await _userService.IsUserInRoleAsync(user.Id, "Instructor");
+                    if (isInstructor)
                     {
                         instructors.Add(user);
                     }
@@ -347,7 +350,8 @@ namespace SkillForge.Controllers
                 
                 foreach (var user in allUsers)
                 {
-                    if (await _userService.IsUserInRoleAsync(user.Id, "Instructor"))
+                    var isInstructor = await _userService.IsUserInRoleAsync(user.Id, "Instructor");
+                    if (isInstructor)
                     {
                         instructors.Add(user);
                     }

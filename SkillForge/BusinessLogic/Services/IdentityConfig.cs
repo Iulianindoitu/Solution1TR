@@ -9,11 +9,26 @@ using System.Data.Entity;
 
 namespace SkillForge.BusinessLogic.Services
 {
-     public class IdentityConfig
+    public class IdentityConfig
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+
+        public PasswordOptions PasswordOptions { get; set; } = new PasswordOptions
+        {
+            RequiredLength = 6,
+            RequireNonLetterOrDigit = true,
+            RequireDigit = true,
+            RequireLowercase = true,
+            RequireUppercase = true
+        };
+
+        public UserOptions UserOptions { get; set; } = new UserOptions
+        {
+            RequireUniqueEmail = true,
+            AllowOnlyAlphanumericUserNames = false
+        };
 
         public IdentityConfig(ApplicationDbContext context)
         {
@@ -93,5 +108,11 @@ namespace SkillForge.BusinessLogic.Services
             _userManager?.Dispose();
             _roleManager?.Dispose();
         }
+    }
+
+    public class UserOptions
+    {
+        public bool RequireUniqueEmail { get; set; }
+        public bool AllowOnlyAlphanumericUserNames { get; set; }
     }
 }
