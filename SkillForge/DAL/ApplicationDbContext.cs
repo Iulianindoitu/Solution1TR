@@ -18,8 +18,6 @@ namespace SkillForge.DAL
         }
 
         public DbSet<Course> Courses { get; set; }
-        public new DbSet<ApplicationUser> Users { get; set; }
-        public new DbSet<IdentityRole> Roles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

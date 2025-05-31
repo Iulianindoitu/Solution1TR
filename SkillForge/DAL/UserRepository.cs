@@ -84,13 +84,10 @@ namespace SkillForge.DAL
             if (existingUser == null)
                 throw new ArgumentException("User not found", nameof(user));
 
-            // Update only the fields that should be updated
-            existingUser.LastLoginAt = user.LastLoginAt;
+            // Update only the fields that exist in ApplicationUser
             existingUser.IsActive = user.IsActive;
-
-            // Ensure these properties exist in the User class, not ApplicationUser
-            existingUser.ResetPasswordToken = user.ResetPasswordToken;
-            existingUser.ResetPasswordTokenExpiry = user.ResetPasswordTokenExpiry;
+            existingUser.UserName = user.Username;
+            existingUser.Email = user.Email;
 
             _context.SaveChanges();
         }
