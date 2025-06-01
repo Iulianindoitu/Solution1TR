@@ -19,7 +19,7 @@ namespace SkillForge.Models
 
         [Required(ErrorMessage = "Price is required")]
         [Range(0, 999999.99, ErrorMessage = "Price must be between 0 and 999999.99")]
-        [Column(TypeName = "decimal(18,2)")]
+        [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
         [Required]
@@ -30,6 +30,9 @@ namespace SkillForge.Models
         
         [ForeignKey("InstructorId")]
         public virtual ApplicationUser Instructor { get; set; }
+
+        [Required]
+        public bool IsActive { get; set; } = true;
 
         public Course()
         {

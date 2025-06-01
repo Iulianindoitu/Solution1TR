@@ -26,7 +26,7 @@ namespace SkillForge
             Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
             using (var context = new ApplicationDbContext())
             {
-                context.Database.Initialize(force: false);
+                    context.Database.Initialize(force: false);
             }
         }
     }
