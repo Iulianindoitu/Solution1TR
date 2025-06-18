@@ -6,6 +6,8 @@
 <html lang="en" class="layout-menu-fixed layout-compact" data-assets-path="~/Content/assets/" data-template="vertical-menu-template-free">
 <head>
     @Html.Partial("_Header")
+    <!-- Core CSS -->
+    @Styles.Render("~/bundles/core/css")
     <!-- Page CSS -->
     @Styles.Render("~/bundles/hero/css")
     @RenderSection("Styles", required: false)

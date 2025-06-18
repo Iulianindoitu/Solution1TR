@@ -34,6 +34,9 @@ namespace SkillForge.Models
         [Required]
         public bool IsActive { get; set; } = true;
 
+        [StringLength(500)]
+        public string ImageUrl { get; set; }
+
         public Course()
         {
             CreatedAt = DateTime.UtcNow;

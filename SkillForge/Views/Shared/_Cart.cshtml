@@ -1,0 +1,108 @@
+@model List<SkillForge.Models.CartItem>
+
+<div class="cart-sidebar">
+    <div class="cart-header">
+        <h5 class="mb-0">
+            <i class="bx bx-cart me-2"></i>
+            Shopping Cart
+        </h5>
+    </div>
+    
+    <div class="cart-items">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="cart-item d-flex align-items-center p-2 border-bottom">
+                    <div class="cart-item-image me-2">
+                        <img src="@item.Course.ImageUrl" alt="@item.Course.Title" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                    </div>
+                    <div class="cart-item-details flex-grow-1">
+                        <h6 class="mb-0 text-truncate">@item.Course.Title</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">$@item.Course.Price</small>
+                            <small class="text-muted">Qty: @item.Quantity</small>
+                        </div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="btn btn-sm btn-outline-danger remove-from-cart" data-course-id="@item.Course.Id">
+                            <i class="bx bx-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+            
+            <div class="cart-footer p-2">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Total:</span>
+                    <span class="fw-bold">$@Model.Sum(i => i.Course.Price * i.Quantity)</span>
+                </div>
+                <a href="@Url.Action("Checkout", "Cart")" class="btn btn-primary w-100">
+                    Proceed to Checkout
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="text-center p-4">
+                <i class="bx bx-cart bx-lg text-muted mb-2"></i>
+                <p class="text-muted mb-0">Your cart is empty</p>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .cart-sidebar {
+        background: #fff;
+        border-radius: 0.375rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    
+    .cart-header {
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .cart-items {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    .cart-item {
+        transition: background-color 0.2s;
+    }
+    
+    .cart-item:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .cart-footer {
+        border-top: 1px solid #dee2e6;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.remove-from-cart').click(function () {
+                var courseId = $(this).data('course-id');
+                var cartItem = $(this).closest('.cart-item');
+                
+                $.ajax({
+                    url: '@Url.Action("RemoveFromCart", "Cart")',
+                    type: 'POST',
+                    data: { courseId: courseId },
+                    success: function (response) {
+                        if (response.success) {
+                            // Refresh cart partial view
+                            $.get('@Url.Action("GetCart", "Cart")', function (data) {
+                                $('#cart-container').html(data);
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+} 

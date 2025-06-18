@@ -1,5 +1,9 @@
-﻿@{
-    ViewBag.Title = "Home";
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using System.Web.Optimization
+@model SkillForge.Models.AdminDashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/Layout_.cshtml";
 }
 
@@ -22,31 +26,75 @@
             border-radius: 50%;
         }
     </style>
+    @Styles.Render("~/bundles/core/css")
 }
 
-<div class="row">
-    <!-- Welcome Section -->
-    <div class="col-12 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Welcome to SkillForge</h4>
-                <p class="card-text">Your platform for skill development and learning</p>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <!-- Statistics -->
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Total Courses</h6>
+                            <h4 class="mb-0">@Model.TotalCourses</h4>
+                        </div>
+                        <div class="avatar">
+                            <div class="avatar-content bg-primary">
+                                <i class="bx bx-book-open text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Quick Stats -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-1">Total Courses</h6>
-                        <h4 class="mb-0">0</h4>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Total Users</h6>
+                            <h4 class="mb-0">@Model.TotalUsers</h4>
+                        </div>
+                        <div class="avatar">
+                            <div class="avatar-content bg-success">
+                                <i class="bx bx-user text-white"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="avatar">
-                        <div class="avatar-content bg-primary">
-                            <i class="bx bx-book-open text-white"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Cart Items</h6>
+                            <h4 class="mb-0">@Model.TotalCartItems</h4>
+                        </div>
+                        <div class="avatar">
+                            <div class="avatar-content bg-warning">
+                                <i class="bx bx-cart text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Cart Value</h6>
+                            <h4 class="mb-0">$@Model.TotalCartValue.ToString("N2")</h4>
+                        </div>
+                        <div class="avatar">
+                            <div class="avatar-content bg-info">
+                                <i class="bx bx-dollar text-white"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,89 +102,68 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-1">Active Users</h6>
-                        <h4 class="mb-0">0</h4>
+    <div class="row">
+        <!-- Featured Courses -->
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Featured Courses</h5>
+                    <a href="@Url.Action("NewCourses", "Home")" class="btn btn-primary btn-sm">View All</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var course in Model.FeaturedCourses)
+                        {
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100">
+                                    <img src="@course.ImageUrl" class="card-img-top" alt="@course.Title" style="height: 120px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-truncate">@course.Title</h6>
+                                        <p class="card-text small text-muted">$@course.Price.ToString("N2")</p>
+                                        <button class="btn btn-primary btn-sm w-100 add-to-cart" data-course-id="@course.Id">
+                                            <i class="bx bx-cart me-1"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
-                    <div class="avatar">
-                        <div class="avatar-content bg-success">
-                            <i class="bx bx-user text-white"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Cart Activity -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Cart Activity</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentCartItems.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var item in Model.RecentCartItems)
+                            {
+                                <div class="list-group-item px-0">
+                                    <div class="d-flex align-items-center">
+                                        <img src="@item.Course.ImageUrl" alt="@item.Course.Title" class="rounded me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-0 text-truncate">@item.Course.Title</h6>
+                                            <small class="text-muted">Added @item.AddedAt.ToString("MMM dd, yyyy")</small>
+                                        </div>
+                                        <span class="badge bg-primary">$@item.Course.Price.ToString("N2")</span>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-1">Completed Courses</h6>
-                        <h4 class="mb-0">0</h4>
-                    </div>
-                    <div class="avatar">
-                        <div class="avatar-content bg-warning">
-                            <i class="bx bx-check-circle text-white"></i>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="bx bx-cart bx-lg text-muted mb-2"></i>
+                            <p class="text-muted mb-0">No recent cart activity</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-1">Certificates</h6>
-                        <h4 class="mb-0">0</h4>
-                    </div>
-                    <div class="avatar">
-                        <div class="avatar-content bg-info">
-                            <i class="bx bx-award text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Featured Courses -->
-    <div class="col-12 mb-4">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Featured Courses</h5>
-                <a href="#" class="btn btn-primary btn-sm">View All</a>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Course cards will be dynamically added here -->
-                    <div class="col-12 text-center">
-                        <p class="text-muted">No courses available yet</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recent Activity -->
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Recent Activity</h5>
-            </div> 
-            <div class="card-body">
-                <div class="activity-feed">
-                    <div class="text-center">
-                        <p class="text-muted">No recent activity</p>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -145,8 +172,63 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            console.log('Index page loaded');
+        $(document).ready(function () {
+            $('.add-to-cart').click(function () {
+                var courseId = $(this).data('course-id');
+                var button = $(this);
+                
+                // Disable button and show loading state
+                button.prop('disabled', true);
+                button.html('<i class="bx bx-loader-alt bx-spin me-1"></i>Adding...');
+                
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "Cart")',
+                    type: 'POST',
+                    data: { courseId: courseId },
+                    success: function (response) {
+                        if (response.success) {
+                            // Show success message
+                            button.html('<i class="bx bx-check me-1"></i>Added!');
+                            button.removeClass('btn-primary').addClass('btn-success');
+                            
+                            // Refresh cart partial view
+                            $.get('@Url.Action("GetCart", "Cart")', function (data) {
+                                $('#cart-container').html(data);
+                            });
+                            
+                            // Reset button after 2 seconds
+                            setTimeout(function () {
+                                button.prop('disabled', false);
+                                button.html('<i class="bx bx-cart me-1"></i>Add to Cart');
+                                button.removeClass('btn-success').addClass('btn-primary');
+                            }, 2000);
+                        } else {
+                            // Show error message
+                            button.html('<i class="bx bx-x me-1"></i>Error');
+                            button.removeClass('btn-primary').addClass('btn-danger');
+                            
+                            // Reset button after 2 seconds
+                            setTimeout(function () {
+                                button.prop('disabled', false);
+                                button.html('<i class="bx bx-cart me-1"></i>Add to Cart');
+                                button.removeClass('btn-danger').addClass('btn-primary');
+                            }, 2000);
+                        }
+                    },
+                    error: function () {
+                        // Show error message
+                        button.html('<i class="bx bx-x me-1"></i>Error');
+                        button.removeClass('btn-primary').addClass('btn-danger');
+                        
+                        // Reset button after 2 seconds
+                        setTimeout(function () {
+                            button.prop('disabled', false);
+                            button.html('<i class="bx bx-cart me-1"></i>Add to Cart');
+                            button.removeClass('btn-danger').addClass('btn-primary');
+                        }, 2000);
+                    }
+                });
+            });
         });
     </script>
 }

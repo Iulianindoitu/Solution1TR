@@ -80,6 +80,16 @@
             </a>
         </li>
 
+        <!-- Shopping Cart -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Shopping Cart</span>
+        </li>
+        <li class="menu-item">
+            <div class="px-3">
+                @Html.Action("GetCart", "Cart")
+            </div>
+        </li>
+
         @if (isAuthenticated)
         {
             <!-- User Profile -->

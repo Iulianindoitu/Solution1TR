@@ -585,6 +585,7 @@
     <Content Include="Views\Admin\Courses.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-ui-1-14.1.js" />
     <Content Include="Scripts\jquery-ui-1.14.1.js" />
@@ -605,6 +606,7 @@
     <Compile Include="BusinessLogic\Services\PasswordOptions.cs" />
     <Compile Include="BusinessLogic\Services\UserService.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -613,8 +615,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminDashboardViewModel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\IdentityConfig.cs" />
     <Compile Include="Models\User.cs" />
@@ -634,6 +638,7 @@
     <Content Include="Views\Shared\Layout_.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Home\NewCourses.cshtml" />
+    <Content Include="Views\Shared\_Cart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

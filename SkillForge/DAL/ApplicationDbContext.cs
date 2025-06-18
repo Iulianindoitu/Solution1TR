@@ -9,7 +9,8 @@ namespace SkillForge.DAL
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer<ApplicationDbContext>(null);
+            // Enable automatic migrations
+            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()
@@ -18,6 +19,7 @@ namespace SkillForge.DAL
         }
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +38,13 @@ namespace SkillForge.DAL
             modelBuilder.Entity<Course>()
                 .Property(c => c.Price)
                 .HasPrecision(18, 2);
+
+            // Configure CartItem entity
+            modelBuilder.Entity<CartItem>()
+                .HasRequired(c => c.Course)
+                .WithMany()
+                .HasForeignKey(c => c.CourseId)
+                .WillCascadeOnDelete(false);
 
             // Configure ApplicationUser entity
             modelBuilder.Entity<ApplicationUser>()

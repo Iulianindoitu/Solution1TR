@@ -22,12 +22,8 @@ namespace SkillForge
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            // Initialize database
-            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
-            using (var context = new ApplicationDbContext())
-            {
-                    context.Database.Initialize(force: false);
-            }
+            // Initialize database with migrations
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Migrations.Configuration>());
         }
     }
 }

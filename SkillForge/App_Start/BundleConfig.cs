@@ -13,11 +13,9 @@ namespace SkillForge.App_Start
             // Core CSS Bundles
             bundles.Add(new StyleBundle("~/bundles/core/css").Include(
                  "~/Content/assets/vendor/fonts/iconify-icons.css",
-                 "~/Content/assets/vendor/libs/apex-charts/apex-charts.css"
+                 "~/Content/assets/vendor/libs/apex-charts/apex-charts.css",
+                 "~/Content/assets/vendor/css/core.css"
             ));
-
-            bundles.Add(new StyleBundle("~/bundles/hero/css").Include(
-                "~//Content/assets/vendor/css/core.css"));
 
             // Demo CSS Bundle
             bundles.Add(new StyleBundle("~/bundles/demo/css").Include(

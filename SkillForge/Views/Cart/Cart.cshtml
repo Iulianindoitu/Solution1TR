@@ -1,0 +1,78 @@
+@model List<SkillForge.Models.CartItem>
+@{
+    ViewBag.Title = "Your Cart";
+    Layout = "~/Views/Shared/Layout_.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h3 class="mb-4">Your Shopping Cart</h3>
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><img src="@item.Course.ImageUrl" alt="@item.Course.Title" style="width:60px;height:60px;object-fit:cover;" class="rounded" /></td>
+                            <td>@item.Course.Title</td>
+                            <td>$@item.Course.Price.ToString("N2")</td>
+                            <td>@item.Quantity</td>
+                            <td>$@(item.Course.Price * item.Quantity).ToString("N2")</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger remove-from-cart" data-course-id="@item.Course.Id">
+                                    <i class="bx bx-trash"></i> Remove
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <h5>Total: <span class="fw-bold">$@Model.Sum(i => i.Course.Price * i.Quantity).ToString("N2")</span></h5>
+            <a href="@Url.Action("Checkout", "Cart")" class="btn btn-primary btn-lg">Proceed to Checkout</a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <i class="bx bx-cart bx-lg mb-2"></i>
+            <p>Your cart is empty.</p>
+            <a href="@Url.Action("NewCourses", "Home")" class="btn btn-primary">Browse Courses</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.remove-from-cart').click(function () {
+                var courseId = $(this).data('course-id');
+                var row = $(this).closest('tr');
+                $.ajax({
+                    url: '@Url.Action("RemoveFromCart", "Cart")',
+                    type: 'POST',
+                    data: { courseId: courseId },
+                    success: function (response) {
+                        if (response.success) {
+                            row.fadeOut(300, function () { $(this).remove(); });
+                            // Optionally refresh total or reload page
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+} 
